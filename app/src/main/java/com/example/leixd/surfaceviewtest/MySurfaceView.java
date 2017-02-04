@@ -15,20 +15,22 @@ import android.view.SurfaceView;
 public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback{
     SurfaceHolder surfaceHolder;
     Paint paint;
-
-
+    Canvas canvas;
+    private MyThread myThread;
     public MySurfaceView(Context context, AttributeSet attributeSet)
     {
         super(context,attributeSet);
         surfaceHolder=getHolder();
         surfaceHolder.addCallback(this);
-        draw();
+        paint=new Paint();
+        paint.setColor(Color.RED);
 
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-
+myThread=new MyThread();
+  myThread.start();
     }
 
     @Override
@@ -40,15 +42,17 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
 
     }
-
-    public void draw()
+    class MyThread extends Thread
     {
-        Canvas canvas=surfaceHolder.lockCanvas();
-        paint=new Paint();
-        paint.setColor(Color.RED);
-        canvas.drawColor(Color.GREEN);
-        canvas.drawLine(0,0,600,600,paint);
-        surfaceHolder.unlockCanvasAndPost(canvas);
+        @Override
+        public void run() {
+            super.run();
+            canvas=surfaceHolder.lockCanvas();
+            canvas.drawColor(Color.);
+            canvas.drawLine(0,0,600,600,paint);
 
+surfaceHolder.unlockCanvasAndPost(canvas);
+        }
     }
+
 }
